@@ -37,3 +37,7 @@ void* memset(void*, int, uint);
 void* malloc(uint);
 void free(void*);
 int atoi(const char*);
+
+///// START HERE /////
+int create_container(void);
+int destroy_container(int);

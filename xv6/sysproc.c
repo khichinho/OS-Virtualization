@@ -89,3 +89,16 @@ sys_uptime(void)
   release(&tickslock);
   return xticks;
 }
+
+
+
+
+/////////// START HERE ///////////
+
+int sys_create_container(void){
+  create_container();
+}
+
+int sys_destroy_container(void){
+  destroy_container(0);
+}
