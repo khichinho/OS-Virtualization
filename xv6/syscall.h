@@ -23,4 +23,3 @@
 
 ///// START HERE /////
 #define SYS_create_container    22
-#define SYS_destroy_container   23

@@ -39,5 +39,4 @@ void free(void*);
 int atoi(const char*);
 
 ///// START HERE /////
-int create_container(void);
-int destroy_container(int);
+void     create_container(void);

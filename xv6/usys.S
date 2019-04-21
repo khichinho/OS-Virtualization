@@ -32,4 +32,3 @@ SYSCALL(uptime)
 
 ///// START HERE /////
 SYSCALL(create_container)
-SYSCALL(destroy_container)

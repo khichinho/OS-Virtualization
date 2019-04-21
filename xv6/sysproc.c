@@ -94,11 +94,13 @@ sys_uptime(void)
 
 
 /////////// START HERE ///////////
+// int sys_add(int a, int b){
+// argint(0,&a);
+//   argint(1,&b);
+  
+//   return add(a,b);
+// }
 
-int sys_create_container(void){
+void sys_create_container(void){
   create_container();
-}
-
-int sys_destroy_container(void){
-  destroy_container(0);
 }
