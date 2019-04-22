@@ -39,4 +39,4 @@ void free(void*);
 int atoi(const char*);
 
 ///// START HERE /////
-void     create_container(void);
+int     create_container(int);

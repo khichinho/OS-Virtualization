@@ -123,7 +123,7 @@ void            yield(void);
 
 
 ///// START HERE /////
-void            create_container(void);
+int            create_container(int);
 
 
 // swtch.S

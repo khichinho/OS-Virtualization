@@ -535,6 +535,7 @@ procdump(void)
 
 ///// START HERE /////
 
-void create_container(void){
-  cprintf("Container created.\n");
+int create_container(int num_container){
+  cprintf("Container %d created.\n", num_container);
+  return 0;
 }

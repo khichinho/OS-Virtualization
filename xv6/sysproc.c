@@ -101,6 +101,7 @@ sys_uptime(void)
 //   return add(a,b);
 // }
 
-void sys_create_container(void){
-  create_container();
+int sys_create_container(int num_container){
+  argint(0,&num_container);
+  return create_container(num_container);
 }
