@@ -39,4 +39,14 @@ void free(void*);
 int atoi(const char*);
 
 ///// START HERE /////
-int     create_container(int);
+
+int get_current_proc(int);
+int get_max_proc(int);
+int get_total_proc(int);
+void container_init();
+void set_proc_container(int);
+int create_container(int);
+int join_container(int);
+int leave_container(int);
+int destroy_container(int);
+int get_container_index(int);

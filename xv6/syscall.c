@@ -7,6 +7,8 @@
 #include "x86.h"
 #include "syscall.h"
 
+#include "container.h"
+
 // User code makes a system call with INT T_SYSCALL.
 // System call number in %eax.
 // Arguments on the stack, from the user call to the C
@@ -105,7 +107,18 @@ extern int sys_write(void);
 extern int sys_uptime(void);
 
 /// START HERE /////
+extern int sys_get_current_proc(void);
+extern int sys_get_max_proc(void);
+extern int sys_get_total_proc(void);
+extern int sys_container_init(void);
+extern int sys_get_container_index(void);
+extern int sys_set_proc_container(void);
+
 extern int sys_create_container(void);
+extern int sys_join_container(void);
+extern int sys_leave_container(void);
+extern int sys_destroy_container(void);
+
 
 static int (*syscalls[])(void) = {
 [SYS_fork]    sys_fork,
@@ -129,7 +142,16 @@ static int (*syscalls[])(void) = {
 [SYS_link]    sys_link,
 [SYS_mkdir]   sys_mkdir,
 [SYS_close]   sys_close,
-[SYS_create_container]      sys_create_container,
+[SYS_get_current_proc]  sys_get_current_proc,
+[SYS_get_max_proc]  sys_get_max_proc,
+[SYS_get_total_proc]  sys_get_total_proc,
+[SYS_container_init]  sys_container_init,
+[SYS_set_proc_container]  sys_set_proc_container,
+[SYS_create_container]  sys_create_container,
+[SYS_join_container]  sys_join_container,
+[SYS_leave_container] sys_leave_container,
+[SYS_destroy_container] sys_destroy_container,
+[SYS_get_container_index] sys_get_container_index,
 };
 
 void

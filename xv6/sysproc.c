@@ -7,6 +7,8 @@
 #include "mmu.h"
 #include "proc.h"
 
+#include "container.h"
+
 int
 sys_fork(void)
 {
@@ -94,14 +96,67 @@ sys_uptime(void)
 
 
 /////////// START HERE ///////////
-// int sys_add(int a, int b){
-// argint(0,&a);
-//   argint(1,&b);
-  
-//   return add(a,b);
-// }
 
-int sys_create_container(int num_container){
-  argint(0,&num_container);
-  return create_container(num_container);
+int sys_get_current_proc(int cont_num){
+  int c_id;
+  argint(0, &c_id);
+  return get_current_proc(c_id);  
+}
+
+int sys_get_max_proc(int cont_num){
+  int c_id;
+  argint(0, &c_id);
+  return get_max_proc(c_id);  
+}
+
+int sys_get_total_proc(int cont_num){
+  int c_id;
+  argint(0, &c_id);
+  return get_total_proc(c_id);  
+}
+
+void sys_container_init(){
+  container_init();
+  return;
+}
+
+void sys_set_proc_container(int id){
+  int c_id;
+  argint(0, &c_id);
+  set_proc_container(c_id);
+}
+
+
+int sys_get_container_index(int id){
+  int c_id;
+  argint(0, &c_id);
+  return get_container_index(c_id);
+}
+
+int sys_create_container(int id){
+  int c_id;
+  argint(0, &c_id);
+  int success = create_container(c_id);
+  return success;
+}
+
+void sys_join_container(int id){
+  int c_id;
+  argint(0, &c_id);
+  join_container(c_id);
+  return;
+}
+
+void sys_leave_container(int id){
+  int c_id;
+  argint(0, &c_id);
+  leave_container(c_id);
+  return;
+}
+
+void sys_destroy_container(int id){
+  int c_id;
+  argint(0, &c_id);
+  destroy_container(c_id);
+  return;
 }

@@ -7,6 +7,8 @@
 #include "proc.h"
 #include "spinlock.h"
 
+#include "container.h"
+
 struct {
   struct spinlock lock;
   struct proc proc[NPROC];
@@ -111,6 +113,9 @@ found:
   p->context = (struct context*)sp;
   memset(p->context, 0, sizeof *p->context);
   p->context->eip = (uint)forkret;
+
+  //edited
+  p->in_kernal=1;
 
   return p;
 }
@@ -535,7 +540,98 @@ procdump(void)
 
 ///// START HERE /////
 
-int create_container(int num_container){
-  cprintf("Container %d created.\n", num_container);
-  return 0;
+#define MAX_CONTAINERS 10
+
+struct container containers[MAX_CONTAINERS];
+
+
+void container_init(){
+  int i;
+  for(i=0;i<MAX_CONTAINERS;i++){
+    // strcpy(containers[i].name,"");
+    containers[i].max_proc = 5;
+    containers[i].current_proc = -1; // if container is not in use current_proc will be 0
+    containers[i].total_proc = 0;
+    containers[i].in_use = -1;
+    containers[i].id=-1;
+  }
+}
+
+int get_current_proc(int cont_num){
+  return containers[cont_num].current_proc;
+}
+
+int get_max_proc(int cont_num){
+  return containers[cont_num].max_proc;
+}
+
+int get_total_proc(int cont_num){
+  return containers[cont_num].total_proc;
+}
+
+int get_container_index(int id){
+  for(int i=0;i<MAX_CONTAINERS;i++){
+    if(containers[i].id == id){
+      return i;
+    }
+  }
+  return -1;
+}
+
+void set_proc_container(int id){
+  int c_index = get_container_index(id);
+  myproc()->p_container = &containers[c_index];
+}
+
+int alloc_container(int id){
+  int cont_id = id;
+  for(int i=0;i<MAX_CONTAINERS;i++){
+    if(containers[i].in_use==0){
+      containers[i].in_use=1;
+      containers[i].id = cont_id;
+      return i;
+    }
+  }
+  return -1;
+}
+
+void reset_container(int id){
+  int i = get_container_index(id);
+  // int i = c_id;
+  containers[i].current_proc = -1; // if container is not in use current_proc will be 0
+  containers[i].total_proc = -1;
+  containers[i].in_use = -1;
+  containers[i].id=-1;
+}
+
+
+
+
+
+
+
+
+
+
+int create_container(int id){
+    int cont_id = alloc_container(id);
+    return cont_id; 
+}
+
+int join_container(int id){
+    struct proc *p = myproc();
+    p->p_container = &containers[id];
+    p->in_kernal = 0;
+    return 0;
+}
+
+int leave_container(int id){
+    struct proc *p = myproc();
+    p->in_kernal=1;
+    return 0;
+}
+
+int destroy_container(int id){
+    reset_container(id);
+    return 0;
 }
