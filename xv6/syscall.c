@@ -118,6 +118,7 @@ extern int sys_create_container(void);
 extern int sys_join_container(void);
 extern int sys_leave_container(void);
 extern int sys_destroy_container(void);
+extern int sys_ps(void);
 
 
 static int (*syscalls[])(void) = {
@@ -152,6 +153,7 @@ static int (*syscalls[])(void) = {
 [SYS_leave_container] sys_leave_container,
 [SYS_destroy_container] sys_destroy_container,
 [SYS_get_container_index] sys_get_container_index,
+[SYS_ps]  sys_ps,
 };
 
 void

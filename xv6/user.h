@@ -50,3 +50,4 @@ int join_container(int);
 int leave_container(int);
 int destroy_container(int);
 int get_container_index(int);
+void ps();

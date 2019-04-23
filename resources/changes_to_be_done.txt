@@ -1,0 +1,10 @@
+files needed to be changed for adding a system call:
+    defs.h (if needed)
+    proc.c (if needed)
+    sysproc.c
+    syscall.c
+    syscall.h
+    user.h
+    usys.S
+
+working on ps command:

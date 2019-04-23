@@ -123,6 +123,7 @@ void            yield(void);
 
 
 ///// START HERE /////
+void ps();
 int get_current_proc(int);  
 int get_max_proc(int);  
 int get_total_proc(int);      

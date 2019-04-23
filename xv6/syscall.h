@@ -22,6 +22,7 @@
 #define SYS_close  21
 
 ///// START HERE /////
+
 #define SYS_get_current_proc        22
 #define SYS_get_max_proc            23
 #define SYS_get_total_proc          24
@@ -32,3 +33,4 @@
 #define SYS_leave_container         29
 #define SYS_destroy_container       30
 #define SYS_get_container_index     31
+#define SYS_ps   32

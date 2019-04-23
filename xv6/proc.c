@@ -540,6 +540,26 @@ procdump(void)
 
 ///// START HERE /////
 
+void ps(){
+  struct proc *p;
+
+  acquire(&ptable.lock);
+
+  for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
+      // Wake process from sleep if necessary.
+      if(p->state!=UNUSED){
+        if(p->in_kernal==1){
+          cprintf("In Kernal process, pid : %d\n",p->pid);
+        }
+        else{
+          // int c_index = get_container_index((p->p_container)->id);
+          cprintf("Container %d , pid : %d\n",(p->p_container)->id, p->pid);
+        }
+      }
+    }
+  release(&ptable.lock);
+}
+
 #define MAX_CONTAINERS 10
 
 struct container containers[MAX_CONTAINERS];
@@ -599,19 +619,10 @@ void reset_container(int id){
   int i = get_container_index(id);
   // int i = c_id;
   containers[i].current_proc = -1; // if container is not in use current_proc will be 0
-  containers[i].total_proc = -1;
-  containers[i].in_use = -1;
-  containers[i].id=-1;
+  containers[i].total_proc = 0; //total number of processes in container
+  containers[i].in_use = 0;     // 0-> container not in use, 1-> container in use
+  containers[i].id=-1;          
 }
-
-
-
-
-
-
-
-
-
 
 int create_container(int id){
     int cont_id = alloc_container(id);
@@ -620,18 +631,28 @@ int create_container(int id){
 
 int join_container(int id){
     struct proc *p = myproc();
-    p->p_container = &containers[id];
+    int c_ind = get_container_index(id);
+    p->p_container = &containers[c_ind]; // adding the container to process's container pointer
+    containers[c_ind].processes[containers[c_ind].total_proc] = p->pid; // adding process's pid to containers array of pids
+    containers[c_ind].total_proc +=1;
     p->in_kernal = 0;
     return 0;
 }
 
 int leave_container(int id){
     struct proc *p = myproc();
+    int c_ind = get_container_index(id);
+    containers[c_ind].total_proc -= 1;
     p->in_kernal=1;
     return 0;
 }
 
 int destroy_container(int id){
-    reset_container(id);
-    return 0;
+  int c_index = get_container_index(id);
+  for(int i=0;i<containers[c_index].total_proc; i++){
+    kill(containers[c_index].processes[i]);
+  }
+  reset_container(id);
+  return 0;
 }
+
