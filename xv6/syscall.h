@@ -33,4 +33,5 @@
 #define SYS_leave_container         29
 #define SYS_destroy_container       30
 #define SYS_get_container_index     31
-#define SYS_ps   32
+#define SYS_ps      32
+#define SYS_give_cont               33

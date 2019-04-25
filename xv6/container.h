@@ -1,3 +1,5 @@
+extern char* gharbaar;
+
 struct container {
     int max_proc;
     int total_proc;
@@ -9,5 +11,5 @@ struct container {
                         //these processes will be killed on contained_destroy
     
     // char name[32];
-    
+
 };

@@ -101,6 +101,10 @@ void sys_ps(){
   ps();
 }
 
+int sys_give_cont(){
+  return give_cont();
+}
+
 int sys_get_current_proc(int cont_num){
   int c_id;
   argint(0, &c_id);

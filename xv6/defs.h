@@ -123,7 +123,9 @@ void            yield(void);
 
 
 ///// START HERE /////
+int mkdir(const char*);
 void ps();
+int give_cont();
 int get_current_proc(int);  
 int get_max_proc(int);  
 int get_total_proc(int);      

@@ -32,6 +32,7 @@ SYSCALL(uptime)
 
 ///// START HERE /////
 SYSCALL(ps)
+SYSCALL(give_cont)
 SYSCALL(get_current_proc)  
 SYSCALL(get_max_proc)       
 SYSCALL(get_total_proc)      
