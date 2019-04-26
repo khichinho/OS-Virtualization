@@ -1,0 +1,13 @@
+int sys_get_current_proc(int cont_num)
+
+int sys_get_max_proc(int cont_num)
+
+int sys_get_total_proc(int cont_num)
+
+void sys_container_init()
+
+void sys_set_proc_container(int id)
+
+int sys_create_container(int id)
+void sys_join_container(int id)
+void sys_leave_container(int id)

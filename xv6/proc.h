@@ -53,7 +53,7 @@ struct proc {
   ////// START HERE //////
   struct container* p_container;
   int in_kernal;
-
+  
 };
 
 // Process memory is laid out contiguously, low addresses first:
