@@ -136,13 +136,13 @@ char* itoa(int num)
 }
 
 void
-lsd()
+lsd(char *inpath)
 {
   char* one_dot = ".";
   char* two_dot = "..";
   int mycontainer = give_cont();
   printf(2,"container id from proc %d\n",mycontainer);
-  char* path = ".";
+  char* path = inpath;
   char buf[512], *p;
   int fd;
   struct dirent de;
@@ -182,9 +182,14 @@ lsd()
         continue;
       }
       char* fn = fmtname(buf);
-      if(fn == one_dot || fn == two_dot){}
-      else{ 
+      if(*inpath == *one_dot){
         printf(1, "%s %d %d %d\n", fn, st.type, st.ino, st.size);
+      }
+      else{
+        if(*fn == *one_dot || *fn == *two_dot){}
+        else{ 
+          printf(1, "%s %d %d %d\n", fn, st.type, st.ino, st.size);
+        }
       }
     }
     break;
@@ -280,6 +285,20 @@ rmdir2(int id){
     }
 }
 
+void givels(){
+    int cont = give_cont();
+    if(cont<0){
+        lsd(".");
+    }
+    else{
+        lsd(".");
+        char* folder = itoa(cont);
+
+        lsd(joinFolder(folder));
+
+    }
+}
+
 int createContainer(int id){
   printf(1,"creating container %d\n", id);
   mkdir(itoa(id));
@@ -288,9 +307,30 @@ int createContainer(int id){
 
 int destroyContainer(int id){
   
-  printf(1,"removing container %d\n", id);
+  
   rmFiles(itoa(id));
   rmdir2(id);
+  printf(1,"removing container %d\n", id);
   return destroy_container(id) ;
 }
 
+int c_open(char* name, int option){
+  int c_num = give_cont();
+  if(c_num<0){
+    int fd = open(name, option);
+    chdir("..");
+    return fd;
+  }else{
+    char* fn = itoa(c_num);
+    char* fname = joinFolder(fn);
+    chdir(fname);
+    int fd = open(name, option);
+    chdir("..");
+    return fd;
+  }
+}
+
+// int main(int argc, char** argv){
+//   lsd();
+//   return 0;
+// }

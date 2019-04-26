@@ -184,6 +184,7 @@ UPROGS=\
 	_zombie\
 	_lsd\
 	_container_test\
+	_myls\
 
 fs.img: mkfs README $(UPROGS)
 	./mkfs fs.img README $(UPROGS)
@@ -252,7 +253,7 @@ qemu-nox-gdb: fs.img xv6.img .gdbinit
 
 
 EXTRA=\
-	chdir.c lsd.c container_test.c\
+	chdir.c lsd.c container_test.c myls.c\
 	mkfs.c ulib.c user.h cat.c echo.c forktest.c grep.c kill.c\
 	ln.c ls.c mkdir.c rm.c stressfs.c usertests.c wc.c zombie.c\
 	printf.c umalloc.c\

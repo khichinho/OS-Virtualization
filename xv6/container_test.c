@@ -38,35 +38,47 @@ int main(int argc, char* argv[]){
 
     createContainer(0);
     createContainer(1);
+    // lsd();
     int cid = fork();
     if(cid==0){
         join_container(0);
-        chdir("0");
+        // chdir("0");
 
-        int fd = open("File", O_CREATE | O_RDWR);
+        int fd = c_open("File", O_CREATE | O_RDWR);
         write(fd, &yolo, 5);
         close(fd);
-        int fd2 = open("File2", O_CREATE | O_RDWR);
+        int fd2 = c_open("File2", O_CREATE | O_RDWR);
         write(fd2, &yolo, 5);
         close(fd2);
         chdir("..");
         destroyContainer(0);
     // chdir("..");
     }
+    else{
+        wait();
+        join_container(1);
+        // chdir("1");
+        int fd3 = c_open("File3", O_CREATE);
+        close(fd3);
+        fd3 =  c_open("File3", O_RDWR);
+        write(fd3, &yolo, 5);
+        close(fd3);
+        int fd4 = c_open("File42", O_CREATE);
+        close(fd3);
+        fd4 =  c_open("File42", O_RDWR);
+        write(fd4, &yolo, 5);
+        close(fd4);
+
+        // chdir("..");
+        givels();
+        // destroyContainer(1);
+    }
     
 
-    chdir("1");
-    int fd3 = open("File3", O_CREATE | O_RDWR);
-    write(fd3, &yolo, 5);
-    close(fd3);
-    int fd4 = open("File42", O_CREATE | O_RDWR);
-    write(fd4, &yolo, 5);
-    close(fd4);
-
-    chdir("..");
+    
 
     
-    destroyContainer(1);
+    
 
 
     // char* a = "0";
