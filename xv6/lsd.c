@@ -22,38 +22,37 @@ fmtname(char *path)
   return buf;
 }
 
-char* pathJoin(char* aa, char* bb){
-  // int alen = strlen(a);
-  // int blen = strlen(b);
+char* joinPath(char* aa, char* bb){
 
-  // printf(1,"%d %d\n", alen, blen);
-  // char danda = '/';
-  // char *os;
-  // os = a;
   char *a = aa;
   char *b = bb;
+  char *danda = "/";
+  
+  while(*a){ a++;}
+  strcpy(a,danda);
 
-  // pointing to the end of the 1st string
-  while(*a)   // till it doesn't point to NULL-till string is not empty
-  {
-      a++;    // point to the next letter of the string
-  }
-
-  while(*b)   // till second string is not empty
-  {
-      *a = *b;
-      b++;
-      a++;
-  }
-
-  // *a = danda;
-  // a++;
-
-  // *a = '\0';  // string must end with '\0'
-  // a--;
+  a = aa;
+  while(*a){ a++;}
+  strcpy(a,b);
 
   return aa;
+}
 
+char* itoa(int num)
+{
+  char* out;
+  if(num == 0){ out = "0";}
+  else if(num == 1){ out = "1";}
+  else if(num == 2){ out = "2";}
+  else if(num == 3){ out = "3";}
+  else if(num == 4){ out = "4";}
+  else if(num == 5){ out = "5";}
+  else if(num == 6){ out = "6";}
+  else if(num == 7){ out = "7";}
+  else if(num == 8){ out = "8";}
+  else{ out = "9";}
+
+  return out;
 }
 
 void
@@ -119,8 +118,8 @@ rmdir(char* folder)
 {
   // char* one_dot = ".";
   // char* two_dot = "..";
-  // int mycontainer = give_cont();
-  
+  int cont_id = give_cont();
+
   printf(2,"removing folder %s\n",folder);
   
   char* path = folder;
@@ -162,12 +161,16 @@ rmdir(char* folder)
         printf(1, "ls: cannot stat %s\n", buf);
         continue;
       }
+      
+      char* myContainer =  itoa(cont_id);
       char* fn = fmtname(buf);
-      printf(1,"filename: %s\n",fn);
-      unlink(fn);
+      printf(1,"container name : %s\n",myContainer);
+      printf(1,"filename : %s\n",fn);
+      char* completePath = joinPath(myContainer, fn);
+      printf(1,"complete path : %s\n",completePath);
+      unlink(completePath);
     }
-    unlink("/0/containerFile");
-    unlink("0");
+    // unlink(itoa(myContainer));
     break;
   }
   close(fd);
