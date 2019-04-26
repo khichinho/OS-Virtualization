@@ -37,21 +37,29 @@ int main(int argc, char* argv[]){
     char yolo[5] = "yolo\n";
 
     createContainer(0);
-    join_container(0);
-    chdir("0");
-
-    int fd = open("File", O_CREATE | O_RDWR);
-    write(fd, &yolo, 5);
-    close(fd);
-
-    printf(1,"\n");
-    lsd();
-    printf(1,"\n");
+    // createContainer(1);
     
-    chdir("..");
-
-    destroyContainer(0);
-    lsd();
+    // int cid = fork();
+    // if(cid==0){
+        join_container(0);
+        chdir("0");
+        int fd = open("File", O_CREATE | O_RDWR);
+        write(fd, &yolo, 5);
+        close(fd);
+        int fd2 = open("File2", O_CREATE | O_RDWR);
+        write(fd2, &yolo, 5);
+        close(fd2);
+        destroyContainer(0);
+    // }
+    // else{
+    //     wait();
+    //     join_container(1);
+    //     chdir("1");
+    //     int fd = open("File", O_CREATE | O_RDWR);
+    //     write(fd, &yolo, 5);
+    //     close(fd);
+    //     destroyContainer(1);
+    // }
 
 
     // char* a = "0";

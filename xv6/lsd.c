@@ -16,25 +16,6 @@ char isspace (unsigned char c)
 
   return 0;
 }
-void*
-lsdmemmove(void *dst, const void *src, uint n)
-{
-  const char *s;
-  char *d;
-
-  s = src;
-  d = dst;
-  if(s < d && s + n > d){
-    s += n;
-    d += n;
-    while(n-- > 0)
-      *--d = *--s;
-  } else
-    while(n-- > 0)
-      *d++ = *s++;
-
-  return dst;
-}
 
 char* trimwhitespace(char *str)
 {
@@ -127,7 +108,6 @@ void correctStr(char* aa, char* bb){
 char* itoa(int num)
 {
   char* out = malloc(1);
-  printf(1,"address given to char* : %d\n",out);
   if(num == 0){ out = "0";}
   else if(num == 1){ out = "1";}
   else if(num == 2){ out = "2";}
@@ -138,7 +118,7 @@ char* itoa(int num)
   else if(num == 7){ out = "7";}
   else if(num == 8){ out = "8";}
   else{ out = "9";}
-  printf(1,"value of char* : %s\n",out);
+  
   return out;
 }
 
@@ -247,9 +227,9 @@ rmFiles(int folder)
   char* one_dot = ".";
   char* two_dot = "..";
 
-  char* patht = itoa(folder);
-  char* path = malloc(1);
-  lsdmemmove(path,patht,1);
+  char* path = itoa(folder);
+  // char* path = malloc(1);
+  // lsdmemmove(path,patht,1);
   // free(patht);
   
   char buf[512], *p;
@@ -326,32 +306,89 @@ rmFiles(int folder)
 }
 
 
+
 void
 rmdir(int num){
-    printf(1,"rm : deleting folder %d\n",num);
-    if(num == 0){ unlink("/0/");}
-    else if(num == 1){ unlink("/1/");}
-    else if(num == 2){ unlink("/2/");}
-    else if(num == 3){ unlink("/3/");}
-    else if(num == 4){ unlink("/4/");}
-    else if(num == 5){ unlink("/5/");}
-    else if(num == 6){ unlink("/6/");}
-    else if(num == 7){ unlink("/7/");}
-    else if(num == 8){ unlink("/8/");}
-    else{ unlink("/9/");}
-    // for(int i=0;i<100;i++){
-    //   char *folder_num = itoafolder(id);
-    //   // printf(1, "Folder to delete %s\n", folder_num);
-      
-    //   if(unlink(folder_num) < 0){
-    //     // printf(1, "rm: %s/ failed to delete\n", folder_num);
-    //   }
-    //   else{
-    //     printf(1, "rm: deleted file %s\n", folder_num);
-    //     return;
-    //   }
-    // }
-    
+    if(num == 0){
+        if(unlink("/0/") < 0){
+          printf(1, "rm: failed to delete folder %d \n", num);
+        }
+        else{
+            printf(1, "rm: deleted folder %d\n", num);
+        }
+    }
+    else if(num == 1){
+        if(unlink("/1/") < 0){
+          printf(1, "rm: failed to delete folder %d \n", num);
+        }
+        else{
+            printf(1, "rm: deleted folder %d\n", num);
+        }
+    }
+    else if(num == 2){
+        if(unlink("/2/") < 0){
+          printf(1, "rm: failed to delete folder %d \n", num);
+        }
+        else{
+            printf(1, "rm: deleted folder %d\n", num);
+        }
+    }
+    else if(num == 3){
+        if(unlink("/3/") < 0){
+          printf(1, "rm: failed to delete folder %d \n", num);
+        }
+        else{
+            printf(1, "rm: deleted folder %d\n", num);
+        }
+    }
+    else if(num == 4){
+        if(unlink("/4/") < 0){
+          printf(1, "rm: failed to delete folder %d \n", num);
+        }
+        else{
+            printf(1, "rm: deleted folder %d\n", num);
+        }
+    }
+    else if(num == 5){
+        if(unlink("/5/") < 0){
+          printf(1, "rm: failed to delete folder %d \n", num);
+        }
+        else{
+            printf(1, "rm: deleted folder %d\n", num);
+        }
+    }
+    else if(num == 6){
+        if(unlink("/6/") < 0){
+          printf(1, "rm: failed to delete folder %d \n", num);
+        }
+        else{
+            printf(1, "rm: deleted folder %d\n", num);
+        }
+    }
+    else if(num == 7){
+        if(unlink("/7/") < 0){
+          printf(1, "rm: failed to delete folder %d \n", num);
+        }
+        else{
+            printf(1, "rm: deleted folder %d\n", num);
+        }
+    }
+    else if(num == 8){
+        if(unlink("/8/") < 0){
+          printf(1, "rm: failed to delete folder %d \n", num);
+        }
+        else{
+            printf(1, "rm: deleted folder %d\n", num);
+        }
+    }
+    else{
+        if(unlink("/9/") < 0){
+          printf(1, "rm: failed to delete folder %d \n", num);
+        }
+        else{
+            printf(1, "rm: deleted folder %d\n", num);
+        }
+    }
 }
 
 int createContainer(int id){
