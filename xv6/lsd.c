@@ -61,18 +61,20 @@ char* joinPath(char* aa, char* bb){
   char *a = aa;
   char *b = bb;
   char *danda = "/";
-  char *end = "\0";
+
+  ///////////////////////////////////////////
+  ///////////////////////////////////////////
+  //// baht pareshaan kiya hai isne ->   ////
+  ////      while(*a){ a++;}             ////
+  ///////////////////////////////////////////
+  ///////////////////////////////////////////
   
-  while(*a){ a++;}
+  a++;
   strcpy(a,danda);
 
   a = aa;
   while(*a){ a++;}
   strcpy(a,b);
-
-  a = aa;
-  while(*a){ a++;}
-  strcpy(a,end);
 
   return aa;
 }
@@ -93,6 +95,17 @@ char* joinStr(char* aa, char* bb){
   return aa;
 }
 
+char* joinFolder(char* aa){
+
+  char *a = aa;
+  char *b = "/";
+
+  a++;
+  strcpy(a,b);
+
+  return aa;
+}
+
 void correctStr(char* aa, char* bb){
 
   char *a = aa;
@@ -107,7 +120,7 @@ void correctStr(char* aa, char* bb){
 
 char* itoa(int num)
 {
-  char* out = malloc(1);
+  char* out;
   if(num == 0){ out = "0";}
   else if(num == 1){ out = "1";}
   else if(num == 2){ out = "2";}
@@ -229,29 +242,25 @@ rmFiles(char* folder)
       int cont_id = give_cont();
       char* fn2 = fmtname(buf);
       char* fn = trimwhitespace(fn2);
-      printf(1,"fileName: %s\n", fn);
+      // printf(1,"fileName: %s\n", fn);
 
 
       if(*fn == *one_dot || *fn == *two_dot){}
       else{
 
         char *contStr = itoa(cont_id);
-        printf(1,"contID: %d\n", cont_id);
-        printf(1,"filePath: %s\n", contStr);
+        // printf(1,"contID: %d\n", cont_id);
+        // printf(1,"filePath: %s\n", contStr);
 
         char *completePath = joinPath(contStr, fn);
         // printf(1,"Complete Path: %s\n",completePath);
 
         if(unlink(completePath) < 0){
-          printf(1, "rm: %s failed to delete\n", completePath);
+          printf(1, "rm: %s failed to delete file\n", completePath);
         }
         else{
             printf(1, "rm: deleted file %s\n", completePath);
         }
-
-        // if(strcmp(fn, "File") == 0){ printf(1,"%s == File\n",fn);}
-        // else{ printf(1,"%s != File\n",fn);}
-        // free(contStr);
       }
     }
 
@@ -260,17 +269,14 @@ rmFiles(char* folder)
   close(fd);
 }
 
-
 void
-rmdir(int id){
+rmdir2(int id){
     char *cont_num = itoa(id);
-    printf(1, "Folder to delete %s\n", cont_num);
-    
-    if(unlink(cont_num) < 0){
-      printf(1, "rm: %s/ failed to delete\n", cont_num);
+    if(unlink(joinFolder(cont_num)) < 0){
+      printf(1, "rm: failed to delete folder %s/ \n", cont_num);
     }
     else{
-      printf(1, "rm: deleted file %s\n", cont_num);
+      printf(1, "rm: deleted folder %s\n", cont_num);
     }
 }
 
@@ -284,7 +290,7 @@ int destroyContainer(int id){
   
   printf(1,"removing container %d\n", id);
   rmFiles(itoa(id));
-  rmdir(id);
+  rmdir2(id);
   return destroy_container(id) ;
 }
 
