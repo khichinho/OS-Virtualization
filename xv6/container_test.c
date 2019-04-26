@@ -38,12 +38,14 @@ int main(int argc, char* argv[]){
 
     createContainer(0);
     join_container(0);
-    
     chdir("0");
 
     int fd = open("File", O_CREATE | O_RDWR);
     write(fd, &yolo, 5);
     close(fd);
+    int fd2 = open("File2", O_CREATE | O_RDWR);
+    write(fd2, &yolo, 5);
+    close(fd2);
 
     printf(1,"\n");
     lsd();

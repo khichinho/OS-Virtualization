@@ -229,15 +229,17 @@ rmFiles(char* folder)
       int cont_id = give_cont();
       char* fn2 = fmtname(buf);
       char* fn = trimwhitespace(fn2);
+      printf(1,"fileName: %s\n", fn);
 
 
       if(*fn == *one_dot || *fn == *two_dot){}
       else{
 
         char *contStr = itoa(cont_id);
-        // printf(1,"filePath: %s\n", contStr);
+        printf(1,"contID: %d\n", cont_id);
+        printf(1,"filePath: %s\n", contStr);
 
-        char *completePath = joinPath(contStr, "File");
+        char *completePath = joinPath(contStr, fn);
         // printf(1,"Complete Path: %s\n",completePath);
 
         if(unlink(completePath) < 0){
@@ -249,6 +251,8 @@ rmFiles(char* folder)
 
         // if(strcmp(fn, "File") == 0){ printf(1,"%s == File\n",fn);}
         // else{ printf(1,"%s != File\n",fn);}
+        free(contStr);
+        free(completePath);
       }
     }
 
