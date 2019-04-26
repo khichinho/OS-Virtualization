@@ -3,6 +3,40 @@
 #include "user.h"
 #include "fs.h"
 
+
+char isspace (unsigned char c) 
+{
+  if ( c == ' '
+    || c == '\f'
+    || c == '\n'
+    || c == '\r'
+    || c == '\t'
+    || c == '\v' ) 
+      return 1;
+
+  return 0;
+}
+
+char* trimwhitespace(char *str)
+{
+  char *end;
+
+  // Trim leading space
+  while(isspace((unsigned char)*str)) str++;
+
+  if(*str == 0)  // All spaces?
+    return str;
+
+  // Trim trailing space
+  end = str + strlen(str) - 1;
+  while(end > str && isspace((unsigned char)*end)) end--;
+
+  // Write new null terminator character
+  end[1] = '\0';
+
+  return str;
+}
+
 char*
 fmtname(char *path)
 {
@@ -27,6 +61,7 @@ char* joinPath(char* aa, char* bb){
   char *a = aa;
   char *b = bb;
   char *danda = "/";
+  char *end = "\0";
   
   while(*a){ a++;}
   strcpy(a,danda);
@@ -35,7 +70,39 @@ char* joinPath(char* aa, char* bb){
   while(*a){ a++;}
   strcpy(a,b);
 
+  a = aa;
+  while(*a){ a++;}
+  strcpy(a,end);
+
   return aa;
+}
+
+char* joinStr(char* aa, char* bb){
+
+  char *a = aa;
+  char *b = bb;
+  char *end = "\0";
+  
+  while(*a){ a++;}
+  strcpy(a,b);
+
+  a = aa;
+  while(*a){ a++;}
+  strcpy(a,end);
+
+  return aa;
+}
+
+void correctStr(char* aa, char* bb){
+
+  char *a = aa;
+  char *end = "\0";
+  
+  strcpy(aa,bb);
+  a = aa;
+  while(*a){ a++;}
+  strcpy(a,end);
+
 }
 
 char* itoa(int num)
@@ -114,14 +181,11 @@ lsd()
 
 
 void
-rmdir(char* folder)
+rmFiles(char* folder)
 {
-  // char* one_dot = ".";
-  // char* two_dot = "..";
-  int cont_id = give_cont();
+  char* one_dot = ".";
+  char* two_dot = "..";
 
-  printf(2,"removing folder %s\n",folder);
-  
   char* path = folder;
   char buf[512], *p;
   int fd;
@@ -162,29 +226,60 @@ rmdir(char* folder)
         continue;
       }
       
-      char* myContainer =  itoa(cont_id);
-      char* fn = fmtname(buf);
-      printf(1,"container name : %s\n",myContainer);
-      printf(1,"filename : %s\n",fn);
-      char* completePath = joinPath(myContainer, fn);
-      printf(1,"complete path : %s\n",completePath);
-      unlink(completePath);
+      int cont_id = give_cont();
+      char* fn2 = fmtname(buf);
+      char* fn = trimwhitespace(fn2);
+
+
+      if(*fn == *one_dot || *fn == *two_dot){}
+      else{
+
+        char *contStr = itoa(cont_id);
+        // printf(1,"filePath: %s\n", contStr);
+
+        char *completePath = joinPath(contStr, "File");
+        // printf(1,"Complete Path: %s\n",completePath);
+
+        if(unlink(completePath) < 0){
+          printf(1, "rm: %s failed to delete\n", completePath);
+        }
+        else{
+            printf(1, "rm: deleted file %s\n", completePath);
+        }
+
+        // if(strcmp(fn, "File") == 0){ printf(1,"%s == File\n",fn);}
+        // else{ printf(1,"%s != File\n",fn);}
+      }
     }
-    // unlink(itoa(myContainer));
+
     break;
   }
   close(fd);
 }
 
 
+void
+rmdir(int id){
+    char *cont_num = itoa(id);
+    if(unlink(cont_num) < 0){
+      printf(1, "rm: %s/ failed to delete\n", cont_num);
+    }
+    else{
+      printf(1, "rm: deleted file %s\n", cont_num);
+    }
+}
+
 int createContainer(int id){
-    mkdir("0");
-    return create_container(id); 
+  printf(1,"creating container %d\n", id);
+  mkdir(itoa(id));
+  return create_container(id); 
 }
 
 int destroyContainer(int id){
   
-  rmdir("0");
+  printf(1,"removing container %d\n", id);
+  rmFiles(itoa(id));
+  rmdir(id);
   return destroy_container(id) ;
 }
 

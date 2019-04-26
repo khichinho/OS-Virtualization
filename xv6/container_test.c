@@ -32,27 +32,34 @@ int main(int argc, char* argv[]){
     //     ps();
     // }
 
+
+
     char yolo[5] = "yolo\n";
 
     createContainer(0);
     join_container(0);
-
+    
     chdir("0");
 
-    int fd = open("containerFile", O_CREATE | O_RDWR);
+    int fd = open("File", O_CREATE | O_RDWR);
     write(fd, &yolo, 5);
     close(fd);
 
+    printf(1,"\n");
     lsd();
+    printf(1,"\n");
+    
     chdir("..");
 
     destroyContainer(0);
     lsd();
 
+
     // char* a = "0";
-    // char* b = "filename";
+    // char* b = "File";
     // char* res = joinPath(a,b);
     // printf(1,"res : %s\n", res);
+    // printf(1, "%d", strcmp(res, "0/File"));
 
     exit();
 }
