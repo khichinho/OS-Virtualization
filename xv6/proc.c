@@ -8,7 +8,7 @@
 #include "spinlock.h"
 
 #include "container.h"
-
+int schedular_log_status=0;
 struct {
   struct spinlock lock;
   struct proc proc[NPROC];
@@ -344,6 +344,14 @@ scheduler(void)
       // Switch to chosen process.  It is the process's job
       // to release ptable.lock and then reacquire it
       // before jumping back to us.
+      if(schedular_log_status ==1 ){
+        if(p->in_kernal !=1){
+          // struct *my_p = myproc();
+          int c_id = p->p_container->id;
+          int c_p_id = p->pid;
+          cprintf("Container :) %d : schduling process :) %d \n",c_id, c_p_id);
+        }
+      }
       c->proc = p;
       switchuvm(p);
       p->state = RUNNING;
@@ -556,6 +564,22 @@ procdump(void)
 
 ///// START HERE /////
 
+
+void schedular_log(int enable){
+  cprintf("current schedular_log_status : %d\n",schedular_log_status);
+  if(enable == 1){
+    schedular_log_status = 1;
+  }
+  else{
+    schedular_log_status = 0;
+  }
+  cprintf("setting schedular_log_status to: %d\n",schedular_log_status);
+}
+
+int get_pid(){
+  return myproc()->pid;
+}
+
 void ps(){
   struct proc *p;
 
@@ -569,7 +593,9 @@ void ps(){
         }
         else{
           // int c_index = get_container_index((p->p_container)->id);
-          cprintf("Container %d Process, pid : %d\n",(p->p_container)->id, p->pid);
+          if(p->p_container->id == myproc()->p_container->id){
+            cprintf("Container %d Process, pid : %d\n",(p->p_container)->id, p->pid);
+          }
         }
       }
     }

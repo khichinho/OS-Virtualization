@@ -34,49 +34,56 @@ int main(int argc, char* argv[]){
 
 
 
-    char yolo[5] = "yolo\n";
+    // char yolo[5] = "yolo\n";
 
-    createContainer(0);
-    createContainer(1);
-    // lsd();
-    int cid = fork();
-    if(cid==0){
-        join_container(0);
-        // chdir("0");
+    // createContainer(0);
+    // createContainer(1);
+    // // lsd();
+    // int cid = fork();
+    // if(cid==0){
+    //     schedular_log_on();
+    //     join_container(0);
+    //     // chdir("0");
 
-        int fd = c_open("File", O_CREATE | O_RDWR);
-        write(fd, &yolo, 5);
-        close(fd);
-        int fd2 = c_open("File2", O_CREATE | O_RDWR);
-        write(fd2, &yolo, 5);
-        close(fd2);
-        chdir("..");
-        destroyContainer(0);
-    // chdir("..");
-    }
-    else{
-        wait();
-        join_container(1);
-        // chdir("1");
-        int fd3 = c_open("File3", O_CREATE);
-        close(fd3);
-        fd3 =  c_open("File3", O_RDWR);
-        write(fd3, &yolo, 5);
-        close(fd3);
-        int fd4 = c_open("File42", O_CREATE);
-        close(fd3);
-        fd4 =  c_open("File42", O_RDWR);
-        write(fd4, &yolo, 5);
-        close(fd4);
-
-        // chdir("..");
-        givels();
-        // destroyContainer(1);
-    }
+    //     int fd = c_open("File", O_CREATE | O_RDWR);
+    //     write(fd, &yolo, 5);
+    //     close(fd);
+    //     int fd2 = c_open("File2", O_CREATE | O_RDWR);
+    //     write(fd2, &yolo, 5);
+    //     close(fd2);
+    //     // chdir("..");
+    //     // givels();
+    //     // ps();
+    //     destroyContainer(0);
+    //     // schedular_log_off();
+    // // chdir("..");
+    //     exit();
+    // }
+    // else{
+    //     // wait();
+        
+    //     join_container(1);
+    //     // ps();
+    //     // chdir("1");
+    //     int fd3 = c_open("File3", O_CREATE);
+    //     close(fd3);
+    //     fd3 =  c_open("File3", O_RDWR);
+    //     write(fd3, &yolo, 5);
+    //     close(fd3);
+    //     int fd4 = c_open("File42", O_CREATE);
+    //     close(fd3);
+    //     fd4 =  c_open("File42", O_RDWR);
+    //     write(fd4, &yolo, 5);
+    //     close(fd4);
+    //     // chdir("..");
+    //     // givels();
+    //     // destroyContainer(1);
+    // }
     
 
     
-
+    char* myname = giveMy_pid();
+    printf(1,"my pid name is : %s",myname);
     
     
 

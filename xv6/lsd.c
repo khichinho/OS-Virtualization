@@ -140,8 +140,8 @@ lsd(char *inpath)
 {
   char* one_dot = ".";
   char* two_dot = "..";
-  int mycontainer = give_cont();
-  printf(2,"container id from proc %d\n",mycontainer);
+  // int mycontainer = give_cont();
+  // printf(2,"container id from proc %d\n",mycontainer);
   char* path = inpath;
   char buf[512], *p;
   int fd;
@@ -264,7 +264,7 @@ rmFiles(char* folder)
           printf(1, "rm: %s failed to delete file\n", completePath);
         }
         else{
-            printf(1, "rm: deleted file %s\n", completePath);
+            // printf(1, "rm: deleted file %s\n", completePath);
         }
       }
     }
@@ -281,7 +281,7 @@ rmdir2(int id){
       printf(1, "rm: failed to delete folder %s/ \n", cont_num);
     }
     else{
-      printf(1, "rm: deleted folder %s\n", cont_num);
+      // printf(1, "rm: deleted folder %s\n", cont_num);
     }
 }
 
@@ -299,8 +299,29 @@ void givels(){
     }
 }
 
+void schedular_log_on(){
+  schedular_log(1);
+}
+void schedular_log_off(){
+  schedular_log(0);
+}
+
+char* give_string(int p){
+  char out[2];
+  int one = p/10;
+  int two = p%10;
+
+  out[0] = one + '0';
+  out[1] = two + '0';
+  return out;
+}
+
+char* giveMy_pid(){
+  int p_id  = get_pid();
+  return give_string(p_id);
+}
 int createContainer(int id){
-  printf(1,"creating container %d\n", id);
+  // printf(1,"creating container %d\n", id);
   mkdir(itoa(id));
   return create_container(id); 
 }
@@ -310,7 +331,7 @@ int destroyContainer(int id){
   
   rmFiles(itoa(id));
   rmdir2(id);
-  printf(1,"removing container %d\n", id);
+  // printf(1,"removing container %d\n", id);
   return destroy_container(id) ;
 }
 

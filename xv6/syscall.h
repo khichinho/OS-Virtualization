@@ -35,3 +35,5 @@
 #define SYS_get_container_index     31
 #define SYS_ps      32
 #define SYS_give_cont               33
+#define SYS_schedular_log           34
+#define SYS_get_pid 35

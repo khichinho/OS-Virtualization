@@ -120,6 +120,8 @@ extern int sys_leave_container(void);
 extern int sys_destroy_container(void);
 extern int sys_ps(void);
 extern int sys_give_cont(void);
+extern int sys_schedular_log(void);
+extern int sys_get_pid(void);
 
 static int (*syscalls[])(void) = {
 [SYS_fork]    sys_fork,
@@ -155,7 +157,11 @@ static int (*syscalls[])(void) = {
 [SYS_get_container_index] sys_get_container_index,
 [SYS_ps]  sys_ps,
 [SYS_give_cont] sys_give_cont,
+[SYS_schedular_log] sys_schedular_log,
+[SYS_get_pid] sys_get_pid,
 };
+
+extern int schedular_log_status;
 
 void
 syscall(void)

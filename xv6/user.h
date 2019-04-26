@@ -52,3 +52,5 @@ int destroy_container(int);
 int get_container_index(int);
 void ps();
 int give_cont();
+void schedular_log(int);
+int get_pid();

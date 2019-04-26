@@ -124,6 +124,8 @@ void            yield(void);
 
 ///// START HERE /////
 int mkdir(const char*);
+void schedular_log(int);
+int get_pid();
 void ps();
 int give_cont();
 int get_current_proc(int);  

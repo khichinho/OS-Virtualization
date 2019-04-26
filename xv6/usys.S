@@ -31,6 +31,8 @@ SYSCALL(sleep)
 SYSCALL(uptime)
 
 ///// START HERE /////
+SYSCALL(schedular_log)
+SYSCALL(get_pid)
 SYSCALL(ps)
 SYSCALL(give_cont)
 SYSCALL(get_current_proc)  

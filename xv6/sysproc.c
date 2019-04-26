@@ -97,6 +97,16 @@ sys_uptime(void)
 
 /////////// START HERE ///////////
 
+void sys_schedular_log(int enable){
+  int eb;
+  argint(0,&eb);
+  schedular_log(eb);
+}
+
+int sys_get_pid(){
+  get_pid();
+}
+
 void sys_ps(){
   ps();
 }
