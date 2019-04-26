@@ -107,7 +107,7 @@ void correctStr(char* aa, char* bb){
 
 char* itoa(int num)
 {
-  char* out;
+  char* out = malloc(1);
   if(num == 0){ out = "0";}
   else if(num == 1){ out = "1";}
   else if(num == 2){ out = "2";}
@@ -251,8 +251,7 @@ rmFiles(char* folder)
 
         // if(strcmp(fn, "File") == 0){ printf(1,"%s == File\n",fn);}
         // else{ printf(1,"%s != File\n",fn);}
-        free(contStr);
-        free(completePath);
+        // free(contStr);
       }
     }
 
@@ -265,6 +264,8 @@ rmFiles(char* folder)
 void
 rmdir(int id){
     char *cont_num = itoa(id);
+    printf(1, "Folder to delete %s\n", cont_num);
+    
     if(unlink(cont_num) < 0){
       printf(1, "rm: %s/ failed to delete\n", cont_num);
     }
