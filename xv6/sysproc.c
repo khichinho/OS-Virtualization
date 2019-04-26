@@ -104,7 +104,7 @@ void sys_schedular_log(int enable){
 }
 
 int sys_get_pid(){
-  get_pid();
+  return get_pid();
 }
 
 void sys_ps(){

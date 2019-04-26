@@ -5,94 +5,120 @@
 
 #include "fcntl.h"
 int main(int argc, char* argv[]){
-    printf(1,"TEST\n");
-    // int cid = fork();
-    // int cid2;
+    
+    // printf(1,"TEST\n");
+    char* message = "Modified by : ";
 
-    // if(cid == 0){
-    //     create_container(0);
-    //     join_container(0);
-    // }
-    // else{
-    //     cid2 = fork();
-    //     if(cid2==0){
-    //         create_container(1);
-    //         join_container(1);
-    //     }
-    //     else{
-    //         ps();
-    //     }
-    // }
-    // wait();
+    createContainer(1);
+    createContainer(2);
+    
+    create_container(3);
+    char kmyname[2];
+    giveMy_pid(kmyname);
+    char* kfirstname = "file_";
+    char* kfname = joinStr(kfirstname,&kmyname);
+    int kfd = c_open(kfname, O_CREATE);
+    close(kfd);
+    kfd =  c_open(kfname, O_RDWR);
+    write(kfd, message, 15);
+    
+    write(kfd, &kmyname,2);
+    close(kfd);
 
-    // if(cid!=0 && cid2!=0){
-    //     printf(1,"Destroying Container\n");
-    //     destroy_container(0);
-    //     destroy_container(1);
-    //     ps();
-    // }
-
-
-
-    // char yolo[5] = "yolo\n";
-
-    // createContainer(0);
-    // createContainer(1);
-    // // lsd();
-    // int cid = fork();
-    // if(cid==0){
-    //     schedular_log_on();
-    //     join_container(0);
-    //     // chdir("0");
-
-    //     int fd = c_open("File", O_CREATE | O_RDWR);
-    //     write(fd, &yolo, 5);
-    //     close(fd);
-    //     int fd2 = c_open("File2", O_CREATE | O_RDWR);
-    //     write(fd2, &yolo, 5);
-    //     close(fd2);
-    //     // chdir("..");
-    //     // givels();
-    //     // ps();
-    //     destroyContainer(0);
-    //     // schedular_log_off();
-    // // chdir("..");
-    //     exit();
-    // }
-    // else{
-    //     // wait();
+    int cid1 = fork();
+    if(cid1 == 0){
+        join_container(1);
+        char myname[2];
+        giveMy_pid(myname);
+        char* firstname = "file_";
+        char* fname = joinStr(firstname,&myname);
+        int fd = c_open(fname, O_CREATE);
+        close(fd);
+        fd =  c_open(fname, O_RDWR);
+        write(fd, message, 15);
         
-    //     join_container(1);
-    //     // ps();
-    //     // chdir("1");
-    //     int fd3 = c_open("File3", O_CREATE);
-    //     close(fd3);
-    //     fd3 =  c_open("File3", O_RDWR);
-    //     write(fd3, &yolo, 5);
-    //     close(fd3);
-    //     int fd4 = c_open("File42", O_CREATE);
-    //     close(fd3);
-    //     fd4 =  c_open("File42", O_RDWR);
-    //     write(fd4, &yolo, 5);
-    //     close(fd4);
-    //     // chdir("..");
-    //     // givels();
-    //     // destroyContainer(1);
-    // }
-    
+        write(fd, &myname,2);
+        close(fd);
+        leaveContainer(1);
+    }
+    int cid2 = fork();
+    if(cid2 == 0){
+        join_container(1);
+        char myname[2];
+        giveMy_pid(myname);
+        char* firstname = "file_";
+        char* fname = joinStr(firstname,&myname);
+        int fd = c_open(fname, O_CREATE);
+        close(fd);
+        fd =  c_open(fname, O_RDWR);
+        write(fd, message, 15);
+        
+        write(fd, &myname,2);
+        close(fd);
+        leaveContainer(1);
+    }
+    int cid3 = fork();
+    if(cid3 == 0){
+        join_container(1);
+        ps();
+        char myname[2];
+        giveMy_pid(myname);
+        char* firstname = "file_";
+        char* fname = joinStr(firstname,&myname);
+        int fd = c_open(fname, O_CREATE);
+        close(fd);
+        fd =  c_open(fname, O_RDWR);
+        write(fd, message, 15);
+        
+        write(fd, &myname,2);
+        close(fd);
+        leaveContainer(1);
+    }
 
-    
-    char* myname = giveMy_pid();
-    printf(1,"my pid name is : %s",myname);
-    
-    
+    int cid4 = fork();
+    if(cid4 == 0){
+        join_container(2);
+        ps();
+        char myname[2];
+        giveMy_pid(myname);
+        char* firstname = "file_";
+        char* fname = joinStr(firstname,&myname);
+        int fd = c_open(fname, O_CREATE);
+        close(fd);
+        fd =  c_open(fname, O_RDWR);
+        write(fd, message, 15);
+        
+        write(fd, &myname,2);
+        close(fd);
+        leaveContainer(2);
+    }
 
+    int cid5 = fork();
+    if(cid5 == 0){
+        join_container(3);
+        ps();
+        char myname[2];
+        giveMy_pid(myname);
+        char* firstname = "file_";
+        char* fname = joinStr(firstname,&myname);
+        int fd = c_open(fname, O_CREATE);
+        close(fd);
+        fd =  c_open(fname, O_RDWR);
+        write(fd, message, 15);
+        
+        write(fd, &myname,2);
+        close(fd);
+        leaveContainer(2);
+    }
 
-    // char* a = "0";
-    // char* b = "File";
-    // char* res = joinPath(a,b);
-    // printf(1,"res : %s\n", res);
-    // printf(1, "%d", strcmp(res, "0/File"));
+    schedular_log_on();
 
+    schedular_log_off();
+    
+    givels();
+
+    destroyContainer(1);
+    destroyContainer(2);
+    destroyContainer(3);
     exit();
 }

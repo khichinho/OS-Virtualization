@@ -83,14 +83,14 @@ char* joinStr(char* aa, char* bb){
 
   char *a = aa;
   char *b = bb;
-  char *end = "\0";
+  // char *end = "\0";
   
   while(*a){ a++;}
   strcpy(a,b);
 
-  a = aa;
-  while(*a){ a++;}
-  strcpy(a,end);
+  // a = aa;
+  // // while(*a){ a++;}
+  // // strcpy(a,end);
 
   return aa;
 }
@@ -306,24 +306,31 @@ void schedular_log_off(){
   schedular_log(0);
 }
 
-char* give_string(int p){
-  char out[2];
+void give_string(int p, char* out){
+  // char out[2];
   int one = p/10;
   int two = p%10;
 
   out[0] = one + '0';
   out[1] = two + '0';
-  return out;
+  // char* 
+  // return out;
 }
 
-char* giveMy_pid(){
+void giveMy_pid(char* name){
   int p_id  = get_pid();
-  return give_string(p_id);
+  // char name[2];
+  give_string(p_id,name);
+  // return name
 }
 int createContainer(int id){
   // printf(1,"creating container %d\n", id);
   mkdir(itoa(id));
   return create_container(id); 
+}
+
+void leaveContainer(int id){
+  leave_container(id);
 }
 
 int destroyContainer(int id){
