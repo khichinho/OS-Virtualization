@@ -79,6 +79,19 @@ char* joinPath(char* aa, char* bb){
   return aa;
 }
 
+char* joinStrfname(char* aa, char* bb){
+
+  char *a = aa;
+  char *b = bb;
+  char *end = "\0";
+  int i=0;
+  while(*a && i<5){ a++;i++;}
+  strcpy(a,b);
+  while(*a && i<7){ a++;i++;}
+  strcpy(a,end);
+  return aa;
+}
+
 char* joinStr(char* aa, char* bb){
 
   char *a = aa;
