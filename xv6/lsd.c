@@ -381,17 +381,11 @@ int c_open(char* name, int option){
   }else{
     // char* fn = itoa(c_num);
     // char* fname = joinFolder(fn);
-    char fn[2];
-    give_string(c_num,fn);
-    char* fn2="";
-    strcpy(fn2,fn);
-    // *fn2++ = fn[0];
-    // *fn2++ = fn[1];
-    // trimwhitespace(fn2);
+    char* fn = "";
+    give_string(c_num,fn);  
     
-    
-    printf(1,"what is fn: %s\n",fn2);
-    char* fname = joinFolder(fn2);
+    printf(1,"what is fn: %s\n",fn);
+    char* fname = joinFolder(fn);
     chdir(fname);
     int fd = open(name, option);
     chdir("..");
