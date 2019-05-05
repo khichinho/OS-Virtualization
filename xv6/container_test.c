@@ -51,9 +51,11 @@ int main(int argc, char* argv[]){
         write(fd, myname1,2);
         // write(fd, firstname1,2);
         close(fd);
-        // leaveContainer(1);
+        // sleep(5);
+        // ps();
+        leaveContainer(1);
         
-        exit();
+        // exit();
     }
     // sleep(1);
     int cid2 = fork();
@@ -77,8 +79,11 @@ int main(int argc, char* argv[]){
         write(fd, myname2,2);
         // write(fd, firstname1,2);
         close(fd);
-        // leaveContainer(1);
-        exit();
+        // sleep(1);
+        leaveContainer(1);
+        // sleep(4);
+        // ps();
+        // exit();
     }
     // sleep(1);
     int cid3 = fork();
@@ -102,9 +107,11 @@ int main(int argc, char* argv[]){
         write(fd, myname3,2);
         // write(fd, firstname1,2);
         close(fd);
-        // leaveContainer(1);
+        // sleep(1);
+        leaveContainer(1);
         // ps();   
-        exit();
+        sleep(4);
+        // exit();
     }
 
     int cid4 = fork();
@@ -128,10 +135,10 @@ int main(int argc, char* argv[]){
         write(fd, myname4,2);
         // write(fd, firstname1,2);
         close(fd);
-        // leaveContainer(1);
+        leaveContainer(2);
         // givels();
         // ps();
-        exit();
+        // exit();
     }
     // wait();
 
@@ -156,16 +163,17 @@ int main(int argc, char* argv[]){
         write(fd, myname5,2);
         // write(fd, firstname1,2);
         close(fd);
-        // leaveContainer(1);
-        // givels();
         // ps();    
-        exit();
+        leaveContainer(3);
+        // givels();
+        
+        // exit();
     }
     
     // schedular_log_on();
     // sleep(5);
     // schedular_log_off();
-    ps();
+    // ps();
     wait();
     // givels();
     

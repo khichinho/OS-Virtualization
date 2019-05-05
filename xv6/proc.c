@@ -766,6 +766,7 @@ int leave_container(int id){
     int c_ind = get_container_index(id);
     containers[c_ind].total_proc -= 1;
     p->in_kernal=1;
+    kill(p->pid);
     return 0;
 }
 

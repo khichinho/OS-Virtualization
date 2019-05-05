@@ -344,7 +344,10 @@ void giveMy_pid(char* name){
 }
 int createContainer(int id){
   printf(1,"creating container %d\n", id);
-  mkdir(itoa(id));
+  char dt[2];
+  give_string(id, dt);
+  // mkdir(itoa(id));
+  mkdir(dt);
   return create_container(id); 
 }
 
@@ -357,7 +360,9 @@ int destroyContainer(int id){
   printf(1,"removing container %d\n", id);
   printf(1,".\n");
   printf(1,"...\n");
-  char* myfolder = itoa(id);
+  // char* myfolder = itoa(id);
+  char myfolder[2];
+  give_string(id, myfolder);
   printf(1,"passing folder's id : %d\n",id);
   printf(1,"passing folder name : %s\n",myfolder);
   rmFiles(myfolder);
@@ -374,8 +379,19 @@ int c_open(char* name, int option){
     chdir("..");
     return fd;
   }else{
-    char* fn = itoa(c_num);
-    char* fname = joinFolder(fn);
+    // char* fn = itoa(c_num);
+    // char* fname = joinFolder(fn);
+    char fn[2];
+    give_string(c_num,fn);
+    char* fn2="";
+    strcpy(fn2,fn);
+    // *fn2++ = fn[0];
+    // *fn2++ = fn[1];
+    // trimwhitespace(fn2);
+    
+    
+    printf(1,"what is fn: %s\n",fn2);
+    char* fname = joinFolder(fn2);
     chdir(fname);
     int fd = open(name, option);
     chdir("..");
