@@ -22,7 +22,7 @@ int main(int argc, char* argv[]){
     int kfd = c_open(kfname, O_CREATE);
     close(kfd);
     kfd =  c_open(kfname, O_RDWR);
-    printf(1,"message to be written %s\n",kmessage);
+    // printf(1,"message to be written %s\n",kmessage);
     write(kfd, kmessage, 15);
     // write(kfd, kmyname,2);
     close(kfd);
@@ -103,6 +103,7 @@ int main(int argc, char* argv[]){
         // write(fd, firstname1,2);
         close(fd);
         // leaveContainer(1);
+        // ps();   
         exit();
     }
 
@@ -129,6 +130,7 @@ int main(int argc, char* argv[]){
         close(fd);
         // leaveContainer(1);
         // givels();
+        // ps();
         exit();
     }
     // wait();
@@ -155,13 +157,15 @@ int main(int argc, char* argv[]){
         // write(fd, firstname1,2);
         close(fd);
         // leaveContainer(1);
-        givels();
+        // givels();
+        // ps();    
         exit();
     }
-
-    schedular_log_on();
-    sleep(5);
-    schedular_log_off();
+    
+    // schedular_log_on();
+    // sleep(5);
+    // schedular_log_off();
+    ps();
     wait();
     // givels();
     

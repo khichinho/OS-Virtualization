@@ -584,17 +584,23 @@ void ps(){
   struct proc *p;
 
   acquire(&ptable.lock);
+  int in_k = myproc()->in_kernal;
+  int my_cid = myproc()->p_container->id;
 
   for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
       // Wake process from sleep if necessary.
       if(p->state!=UNUSED && p->killed!=1){
-        if(p->in_kernal==1){
-          cprintf("Kernal Process, pid : %d\n",p->pid);
+        if(in_k == 1){
+          if(p->in_kernal==1){
+            cprintf("Kernal Process, pid : %d\n",p->pid);
+          }
         }
         else{
-          // int c_index = get_container_index((p->p_container)->id);
-          if(p->p_container->id == myproc()->p_container->id){
-            cprintf("Container %d Process, pid : %d\n",(p->p_container)->id, p->pid);
+          if(in_k!=1){
+            // int c_index = get_container_index((p->p_container)->id);
+            if(p->p_container->id == my_cid){
+              cprintf("Container %d Process, pid : %d\n",(p->p_container)->id, p->pid);
+            }
           }
         }
       }
