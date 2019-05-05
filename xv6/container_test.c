@@ -23,7 +23,7 @@ int main(int argc, char* argv[]){
     close(kfd);
     kfd =  c_open(kfname, O_RDWR);
     write(kfd, kmessage, 15);
-    write(kfd, kmyname,2);
+    // write(kfd, kmyname,2);
     close(kfd);
     printf(1,"\n");
     // givels();
@@ -36,16 +36,19 @@ int main(int argc, char* argv[]){
         char myname1[2];
         giveMy_pid(myname1);
         printf(1,"myname %s\n",myname1);
-        char* firstname1 = "file_";
+        char* firstname1 = "file";
         printf(1,"firstname :%s, myname %s\n",firstname1,myname1);
         char* fname1 = joinStrfname(firstname1,myname1);
-        printf(1,"firstname :%s, fname :%s, myname %s\n",firstname1,fname1,myname1);
+        // printf(1,"firstname :%s, fname :%s, myname %s\n",firstname1,fname1,myname1);
         int fd = c_open(fname1, O_CREATE);
+        // int fd = c_open(firstname1, O_CREATE);
         close(fd);
         fd =  c_open(fname1, O_RDWR);
+        // fd =  c_open(firstname1, O_RDWR);
         write(fd, message1, 15);
         
         write(fd, myname1,2);
+        // write(fd, firstname1,2);
         close(fd);
         // leaveContainer(1);
         exit();
@@ -137,7 +140,7 @@ int main(int argc, char* argv[]){
     // givels();
     
     destroyContainer(1);
-    // destroyContainer(2);
-    // destroyContainer(3);
+    destroyContainer(2);
+    destroyContainer(3);
     exit();
 }

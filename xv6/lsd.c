@@ -132,7 +132,8 @@ void correctStr(char* aa, char* bb){
 }
 
 char* itoa(int num)
-{
+{ 
+  printf(1,"num passed to itoa : %d\n",num);
   char* out;
   if(num == 0){ out = "0";}
   else if(num == 1){ out = "1";}
@@ -144,6 +145,7 @@ char* itoa(int num)
   else if(num == 7){ out = "7";}
   else if(num == 8){ out = "8";}
   else{ out = "9";}
+  printf(1,"itoa returning : %s\n",out);
 
   return out;
 }
@@ -218,6 +220,7 @@ rmFiles(char* folder)
   char* two_dot = "..";
 
   char* path = folder;
+  printf(1,"removing files of folder %s\n",folder);
   char buf[512], *p;
   int fd;
   struct dirent de;
@@ -257,7 +260,7 @@ rmFiles(char* folder)
         continue;
       }
       
-      int cont_id = give_cont();
+      // int cont_id = give_cont();
       char* fn2 = fmtname(buf);
       char* fn = trimwhitespace(fn2);
       // printf(1,"fileName: %s\n", fn);
@@ -266,7 +269,7 @@ rmFiles(char* folder)
       if(*fn == *one_dot || *fn == *two_dot){}
       else{
 
-        char *contStr = itoa(cont_id);
+        char *contStr = path;
         // printf(1,"contID: %d\n", cont_id);
         // printf(1,"filePath: %s\n", contStr);
 
@@ -289,13 +292,16 @@ rmFiles(char* folder)
 
 void
 rmdir2(int id){
+    // printf(1,"removing container %d's folder \n",id);
     char *cont_num = itoa(id);
     if(unlink(joinFolder(cont_num)) < 0){
-      printf(1, "rm: failed to delete folder %s/ \n", cont_num);
+      printf(1, "rm: failed to remove container %s's folder \n", cont_num);
     }
     else{
-      // printf(1, "rm: deleted folder %s\n", cont_num);
+      
+      printf(1, "removed container : %d\n", id);
     }
+    
 }
 
 void givels(){
@@ -337,7 +343,7 @@ void giveMy_pid(char* name){
   // return name
 }
 int createContainer(int id){
-  // printf(1,"creating container %d\n", id);
+  printf(1,"creating container %d\n", id);
   mkdir(itoa(id));
   return create_container(id); 
 }
@@ -348,16 +354,22 @@ void leaveContainer(int id){
 
 int destroyContainer(int id){
   
-  
-  rmFiles(itoa(id));
+  printf(1,"removing container %d\n", id);
+  printf(1,".\n");
+  printf(1,"...\n");
+  char* myfolder = itoa(id);
+  printf(1,"passing folder's id : %d\n",id);
+  printf(1,"passing folder name : %s\n",myfolder);
+  rmFiles(myfolder);
   rmdir2(id);
-  // printf(1,"removing container %d\n", id);
+  
   return destroy_container(id) ;
 }
 
 int c_open(char* name, int option){
   int c_num = give_cont();
-  if(c_num<0){
+  // printf(1,"c_open - container folder : %d\n",c_num);
+  if(c_num<0 || c_num>9){
     int fd = open(name, option);
     chdir("..");
     return fd;
