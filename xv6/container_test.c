@@ -22,6 +22,7 @@ int main(int argc, char* argv[]){
     int kfd = c_open(kfname, O_CREATE);
     close(kfd);
     kfd =  c_open(kfname, O_RDWR);
+    printf(1,"message to be written %s\n",kmessage);
     write(kfd, kmessage, 15);
     // write(kfd, kmyname,2);
     close(kfd);
@@ -35,9 +36,9 @@ int main(int argc, char* argv[]){
         char* message1 = "Modified by : ";
         char myname1[2];
         giveMy_pid(myname1);
-        printf(1,"myname %s\n",myname1);
-        char* firstname1 = "file";
-        printf(1,"firstname :%s, myname %s\n",firstname1,myname1);
+        // printf(1,"myname %s\n",myname1);
+        char* firstname1 = "file_";
+        // printf(1,"firstname :%s, myname %s\n",firstname1,myname1);
         char* fname1 = joinStrfname(firstname1,myname1);
         // printf(1,"firstname :%s, fname :%s, myname %s\n",firstname1,fname1,myname1);
         int fd = c_open(fname1, O_CREATE);
@@ -51,96 +52,122 @@ int main(int argc, char* argv[]){
         // write(fd, firstname1,2);
         close(fd);
         // leaveContainer(1);
+        
         exit();
     }
-    
-    // int cid2 = fork();
-    // if(cid2 == 0){
-    //     join_container(1);
-    //      char* message = "Modified by : ";
-    //     char myname[2];
-    //     giveMy_pid(myname);
-    //     char* firstname = "file_";
-    //     char* fname = joinStr(firstname,myname);
-    //     int fd = c_open(fname, O_CREATE);
-    //     close(fd);
-    //     fd =  c_open(fname, O_RDWR);
-    //     write(fd, message, 15);
+    // sleep(1);
+    int cid2 = fork();
+    if(cid2 == 0){
+        join_container(1);
+        char* message2 = "Modified by : ";
+        char myname2[2];
+        giveMy_pid(myname2);
+        // printf(1,"myname %s\n",myname2);
+        char* firstname2 = "file_";
+        // printf(1,"firstname :%s, myname %s\n",firstname2,myname2);
+        char* fname2 = joinStrfname(firstname2,myname2);
+        // printf(1,"firstname :%s, fname :%s, myname %s\n",firstname1,fname1,myname1);
+        int fd = c_open(fname2, O_CREATE);
+        // int fd = c_open(firstname1, O_CREATE);
+        close(fd);
+        fd =  c_open(fname2, O_RDWR);
+        // fd =  c_open(firstname1, O_RDWR);
+        write(fd, message2, 15);
         
-    //     write(fd, myname,2);
-    //     close(fd);
-    //     leaveContainer(1);
-    // }
-    // int cid3 = fork();
-    // if(cid3 == 0){
-    //     join_container(1);
-    //     // ps();
-    //      char* message = "Modified by : ";
-    //     char myname[2];
-    //     giveMy_pid(myname);
-    //     char* firstname = "file_";
-    //     char* fname = joinStr(firstname,myname);
-    //     int fd = c_open(fname, O_CREATE);
-    //     close(fd);
-    //     fd =  c_open(fname, O_RDWR);
-    //     write(fd, message, 15);
+        write(fd, myname2,2);
+        // write(fd, firstname1,2);
+        close(fd);
+        // leaveContainer(1);
+        exit();
+    }
+    // sleep(1);
+    int cid3 = fork();
+    if(cid3 == 0){
+        join_container(1);
+        char* message3 = "Modified by : ";
+        char myname3[2];
+        giveMy_pid(myname3);
+        // printf(1,"myname %s\n",myname3);
+        char* firstname3 = "file_";
+        // printf(1,"firstname :%s, myname %s\n",firstname3,myname3);
+        char* fname3 = joinStrfname(firstname3,myname3);
+        // printf(1,"firstname :%s, fname :%s, myname %s\n",firstname1,fname1,myname1);
+        int fd = c_open(fname3, O_CREATE);
+        // int fd = c_open(firstname1, O_CREATE);
+        close(fd);
+        fd =  c_open(fname3, O_RDWR);
+        // fd =  c_open(firstname1, O_RDWR);
+        write(fd, message3, 15);
         
-    //     write(fd, myname,2);
-    //     close(fd);
-    //     leaveContainer(1);
+        write(fd, myname3,2);
+        // write(fd, firstname1,2);
+        close(fd);
+        // leaveContainer(1);
+        exit();
+    }
+
+    int cid4 = fork();
+    if(cid4 == 0){
+        join_container(2);
+        char* message4 = "Modified by : ";
+        char myname4[2];
+        giveMy_pid(myname4);
+        // printf(1,"myname %s\n",myname4);
+        char* firstname4 = "file_";
+        // printf(1,"firstname :%s, myname %s\n",firstname4,myname4);
+        char* fname4 = joinStrfname(firstname4,myname4);
+        // printf(1,"firstname :%s, fname :%s, myname %s\n",firstname1,fname1,myname1);
+        int fd = c_open(fname4, O_CREATE);
+        // int fd = c_open(firstname1, O_CREATE);
+        close(fd);
+        fd =  c_open(fname4, O_RDWR);
+        // fd =  c_open(firstname1, O_RDWR);
+        write(fd, message4, 15);
         
-    // }
+        write(fd, myname4,2);
+        // write(fd, firstname1,2);
+        close(fd);
+        // leaveContainer(1);
+        // givels();
+        exit();
+    }
     // wait();
-    // int cid4 = fork();
-    // if(cid4 == 0){
-    //     join_container(2);
-    //     // ps();
-    //     char* message4 = "Modified by : ";
-    //     char myname4[2];
-    //     giveMy_pid(myname4);
-    //     char* firstname4 = "file_";
-    //     char* fname4 = joinStr(firstname4,myname4);
-    //     printf(1,"firstname :%s, fname :%s, myname %s\n",firstname4,fname4,myname4);
-    //     int fd = c_open(fname4, O_CREATE);
-    //     close(fd);
-    //     fd =  c_open(fname4, O_RDWR);
-    //     write(fd, message4, 15);
-        
-    //     write(fd, myname4,2);
-    //     close(fd);
-    //     exit();
-    //     // leaveContainer(2);
-    // }
-    wait();
-    // int cid5 = fork();
-    // if(cid5 == 0){
-    //     join_container(3);
-    //     // ps();
-    //     char* message5 = "Modified by : ";
-    //     char myname5[2];
-    //     giveMy_pid(myname5);
-    //     char* firstname5 = "file_";
-    //     char* fname5 = joinStr(firstname5,myname5);
-    //     printf(1,"firstname :%s, fname :%s, myname %s\n",firstname5,fname5,myname5);
-    //     int fd = c_open(fname5, O_CREATE);
-    //     close(fd);
-    //     fd =  c_open(fname5, O_RDWR);
-    //     write(fd, message5, 15);
-        
-    //     write(fd, myname5,2);
-    //     close(fd);
-    //     wait();
-    //     // leaveContainer(3);
-    // }
 
-    // schedular_log_on();
+    int cid5 = fork();
+    if(cid5 == 0){
+        join_container(3);
+        char* message5 = "Modified by : ";
+        char myname5[2];
+        giveMy_pid(myname5);
+        // printf(1,"myname %s\n",myname5);
+        char* firstname5 = "file_";
+        // printf(1,"firstname :%s, myname %s\n",firstname5,myname5);
+        char* fname5 = joinStrfname(firstname5,myname5);
+        // printf(1,"firstname :%s, fname :%s, myname %s\n",firstname1,fname1,myname1);
+        int fd = c_open(fname5, O_CREATE);
+        // int fd = c_open(firstname1, O_CREATE);
+        close(fd);
+        fd =  c_open(fname5, O_RDWR);
+        // fd =  c_open(firstname1, O_RDWR);
+        write(fd, message5, 15);
+        
+        write(fd, myname5,2);
+        // write(fd, firstname1,2);
+        close(fd);
+        // leaveContainer(1);
+        givels();
+        exit();
+    }
 
-    // schedular_log_off();
+    schedular_log_on();
+    sleep(5);
+    schedular_log_off();
     wait();
     // givels();
     
-    destroyContainer(1);
-    destroyContainer(2);
-    destroyContainer(3);
+    // destroyContainer(1);
+    // givels();
+    // destroyContainer(2);
+    // destroyContainer(3);
     exit();
 }

@@ -133,7 +133,7 @@ void correctStr(char* aa, char* bb){
 
 char* itoa(int num)
 { 
-  printf(1,"num passed to itoa : %d\n",num);
+  // printf(1,"num passed to itoa : %d\n",num);
   char* out;
   if(num == 0){ out = "0";}
   else if(num == 1){ out = "1";}
@@ -145,7 +145,7 @@ char* itoa(int num)
   else if(num == 7){ out = "7";}
   else if(num == 8){ out = "8";}
   else{ out = "9";}
-  printf(1,"itoa returning : %s\n",out);
+  // printf(1,"itoa returning : %s\n",out);
 
   return out;
 }
